@@ -1,34 +1,35 @@
 <?xml version="1.0"?>
-<rdf:RDF xmlns="http://www.co-ode.org/ontologies/pizza/pizza.owl#"
-     xml:base="http://www.co-ode.org/ontologies/pizza/pizza.owl"
-     xmlns:pizza="http://www.co-ode.org/ontologies/pizza/pizza.owl#"
-     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-     xmlns:terms="http://purl.org/dc/terms/"
+<rdf:RDF xmlns="http://www.co-ode.org/ontologies/pizza#"
+     xml:base="http://www.co-ode.org/ontologies/pizza"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
      xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:xml="http://www.w3.org/XML/1998/namespace"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
-     xmlns:skos="http://www.w3.org/2004/02/skos/core#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-     xmlns:dc="http://purl.org/dc/elements/1.1/">
+     xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+     xmlns:pizza="http://www.co-ode.org/ontologies/pizza/pizza.owl#"
+     xmlns:terms="http://purl.org/dc/terms/"
+     xmlns:audit4sg="http://www.co-ode.org/ontologies/pizza#audit4sg:">
     <owl:Ontology rdf:about="http://www.co-ode.org/ontologies/pizza">
         <owl:versionIRI rdf:resource="http://www.co-ode.org/ontologies/pizza/2.0.0"/>
+        <dc:description xml:lang="en">An ontology about pizzas and their toppings.
+
+This is an example ontology that contains all constructs required for the various versions of the Pizza Tutorial run by Manchester University (see http://owl.cs.manchester.ac.uk/publications/talks-and-tutorials/protg-owl-tutorial).</dc:description>
         <dc:title xml:lang="en">pizza</dc:title>
+        <terms:contributor>Alan Rector</terms:contributor>
+        <terms:contributor>Chris Wroe</terms:contributor>
+        <terms:contributor>Matthew Horridge</terms:contributor>
         <terms:contributor>Nick Drummond</terms:contributor>
+        <terms:contributor>Robert Stevens</terms:contributor>
         <terms:license rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Creative Commons Attribution 3.0 (CC BY 3.0)</terms:license>
-        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">pizza</rdfs:label>
         <terms:provenance xml:lang="en">v2.0 Added new annotations to the ontology using standard/well-know annotation properties
 
 v1.5. Removed protege.owl import and references. Made ontology URI date-independent
 
 v1.4. Added Food class (used in domain/range of hasIngredient), Added several hasCountryOfOrigin restrictions on pizzas, Made hasTopping invers functional</terms:provenance>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">pizza</rdfs:label>
         <owl:versionInfo rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2.0</owl:versionInfo>
-        <terms:contributor>Alan Rector</terms:contributor>
-        <dc:description xml:lang="en">An ontology about pizzas and their toppings.
-
-This is an example ontology that contains all constructs required for the various versions of the Pizza Tutorial run by Manchester University (see http://owl.cs.manchester.ac.uk/publications/talks-and-tutorials/protg-owl-tutorial).</dc:description>
-        <terms:contributor>Matthew Horridge</terms:contributor>
-        <terms:contributor>Chris Wroe</terms:contributor>
-        <terms:contributor>Robert Stevens</terms:contributor>
     </owl:Ontology>
     
 
@@ -71,6 +72,12 @@ This is an example ontology that contains all constructs required for the variou
     <!-- http://purl.org/dc/terms/provenance -->
 
     <owl:AnnotationProperty rdf:about="http://purl.org/dc/terms/provenance"/>
+    
+
+
+    <!-- http://www.co-ode.org/ontologies/pizza#audit4sg:annotation -->
+
+    <owl:AnnotationProperty rdf:about="http://www.co-ode.org/ontologies/pizza#audit4sg:annotation"/>
     
 
 
@@ -609,9 +616,9 @@ This is an example ontology that contains all constructs required for the variou
                 </owl:intersectionOf>
             </owl:Class>
         </owl:equivalentClass>
+        <rdfs:comment xml:lang="en">Any pizza that has at least 1 cheese topping.</rdfs:comment>
         <rdfs:label xml:lang="en">CheesyPizza</rdfs:label>
         <rdfs:label xml:lang="pt">PizzaComQueijo</rdfs:label>
-        <skos:definition xml:lang="en">Any pizza that has at least 1 cheese topping.</skos:definition>
         <skos:prefLabel xml:lang="en">Cheesy Pizza</skos:prefLabel>
     </owl:Class>
     
@@ -1175,9 +1182,9 @@ This is an example ontology that contains all constructs required for the variou
                 </owl:intersectionOf>
             </owl:Class>
         </owl:equivalentClass>
+        <rdfs:comment xml:lang="en">Any pizza that has at least 3 toppings. Note that this is a cardinality constraint on the hasTopping property and NOT a qualified cardinality constraint (QCR). A QCR would specify from which class the members in this relationship must be. eg has at least 3 toppings from PizzaTopping. This is currently not supported in OWL.</rdfs:comment>
         <rdfs:label xml:lang="en">InterestingPizza</rdfs:label>
         <rdfs:label xml:lang="pt">PizzaInteressante</rdfs:label>
-        <skos:definition xml:lang="en">Any pizza that has at least 3 toppings. Note that this is a cardinality constraint on the hasTopping property and NOT a qualified cardinality constraint (QCR). A QCR would specify from which class the members in this relationship must be. eg has at least 3 toppings from PizzaTopping. This is currently not supported in OWL.</skos:definition>
         <skos:prefLabel xml:lang="en">Interesting Pizza</skos:prefLabel>
     </owl:Class>
     
@@ -1339,9 +1346,9 @@ This is an example ontology that contains all constructs required for the variou
                 </owl:intersectionOf>
             </owl:Class>
         </owl:equivalentClass>
+        <rdfs:comment xml:lang="en">Any pizza that has at least one meat topping</rdfs:comment>
         <rdfs:label xml:lang="en">MeatyPizza</rdfs:label>
         <rdfs:label xml:lang="pt">PizzaDeCarne</rdfs:label>
-        <skos:definition xml:lang="en">Any pizza that has at least one meat topping</skos:definition>
         <skos:prefLabel xml:lang="en">Meaty Pizza</skos:prefLabel>
     </owl:Class>
     
@@ -3000,5 +3007,5 @@ This is an example ontology that contains all constructs required for the variou
 
 
 
-<!-- Generated by the OWL API (version 4.2.6.20160910-2108) https://github.com/owlcs/owlapi -->
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
 
