@@ -1,0 +1,19 @@
+SELECT DISTINCT ?s ?super WHERE {
+        ?s rdfs:subClassOf ?restriction .
+        ?restriction owl:hasValue pizza:Italy . 
+        ?s rdfs:subClassOf* ?super
+    }
+
+
+
+   
+
+
+
+    // Gets toppings of named pizza
+    	SELECT ?pizzaName ?topping 
+                  WHERE { 
+                            ?pizzaName  rdfs:subClassOf pizza:NamedPizza  ;
+                		    rdfs:subClassOf ?pizzaDetails . 
+                		    ?pizzaDetails owl:someValuesFrom ?topping
+            	}

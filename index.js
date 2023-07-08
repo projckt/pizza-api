@@ -7,8 +7,8 @@ const port = 2554;
 app.use(express.json());
 app.use(cors());
 
+// Get all toppings
 app.get("/toppings", (req, res) => {
-  // Get all toppings
   var dataToSend;
   const python = spawn("python3", ["./ontology/getToppings.py"]);
   python.stdout.on("data", function (data) {
@@ -20,12 +20,10 @@ app.get("/toppings", (req, res) => {
   });
   python.on("close", (code) => {
     console.log(`child process close all stdio with code ${code}`);
-
     let payload = [];
     if (!dataToSend) {
       return res.json({ success: true, payload: payload });
     }
-
     dataToSend = dataToSend.split(/\r?\n/);
     dataToSend.map((item) => {
       if (item) {
@@ -36,8 +34,39 @@ app.get("/toppings", (req, res) => {
   });
 });
 
+app.post("/pizza-toppings", (req, res) => {
+  var dataToSend;
+  const python = spawn("python3", [
+    "./ontology/getPizzaToppings.py",
+    req.body.pizza,
+  ]);
+  python.stdout.on("data", function (data) {
+    console.log("Pipe data from python script ...");
+    dataToSend = data.toString();
+  });
+  python.stderr.on("data", (data) => {
+    console.error(`stderr: ${data}`);
+  });
+  python.on("close", (code) => {
+    console.log(`child process close all stdio with code ${code}`);
+    let payload = [];
+    if (!dataToSend) {
+      return res.json({ success: true, payload: payload });
+    }
+
+    dataToSend = JSON.parse(dataToSend);
+    dataToSend.map((item) => {
+      payload.push({
+        topping: item.topping,
+        spice: item.spice,
+      });
+    });
+    return res.json({ success: true, payload: payload });
+  });
+});
+
+// Get all countries
 app.get("/countries", (req, res) => {
-  // Get all countries
   var dataToSend;
   const python = spawn("python3", ["./ontology/getCountries.py"]);
   python.stdout.on("data", function (data) {
@@ -49,7 +78,6 @@ app.get("/countries", (req, res) => {
   });
   python.on("close", (code) => {
     console.log(`child process close all stdio with code ${code}`);
-
     let payload = [];
     if (!dataToSend) {
       return res.json({ success: true, payload: payload });
@@ -79,8 +107,8 @@ app.get("/countries", (req, res) => {
   });
 });
 
+// Get all pizzas
 app.get("/pizzas", (req, res) => {
-  // Get all pizzas
   var dataToSend;
   const python = spawn("python3", ["./ontology/getPizzas.py"]);
   python.stdout.on("data", function (data) {
@@ -92,12 +120,10 @@ app.get("/pizzas", (req, res) => {
   });
   python.on("close", (code) => {
     console.log(`child process close all stdio with code ${code}`);
-
     let payload = [];
     if (!dataToSend) {
       return res.json({ success: true, payload: payload });
     }
-
     dataToSend = dataToSend.split(/\r?\n/);
     dataToSend.map((item) => {
       if (item) {
@@ -108,9 +134,9 @@ app.get("/pizzas", (req, res) => {
   });
 });
 
+// Get pizzas by toppings
 app.post("/pizzas-by-topping", (req, res) => {
   var dataToSend;
-
   const python = spawn("python3", [
     "./ontology/getPizzas_By_Topping.py",
     req.body.topping,
@@ -124,12 +150,10 @@ app.post("/pizzas-by-topping", (req, res) => {
   });
   python.on("close", (code) => {
     console.log(`child process close all stdio with code ${code}`);
-
     let payload = [];
     if (!dataToSend) {
       return res.json({ success: true, payload: payload });
     }
-
     dataToSend = dataToSend.split(/\r?\n/);
     dataToSend.map((item) => {
       if (item) {
@@ -140,9 +164,9 @@ app.post("/pizzas-by-topping", (req, res) => {
   });
 });
 
+// Get pizzas by country
 app.post("/pizzas-by-country", (req, res) => {
   var dataToSend;
-
   const python = spawn("python3", [
     "./ontology/getPizzas_By_Country.py",
     req.body.country,
@@ -156,12 +180,10 @@ app.post("/pizzas-by-country", (req, res) => {
   });
   python.on("close", (code) => {
     console.log(`child process close all stdio with code ${code}`);
-
     let payload = [];
     if (!dataToSend) {
       return res.json({ success: true, payload: payload });
     }
-
     dataToSend = dataToSend.split(/\r?\n/);
     dataToSend.map((item) => {
       if (item) {
@@ -172,6 +194,7 @@ app.post("/pizzas-by-country", (req, res) => {
   });
 });
 
+// Get toppings by spiciness
 app.post("/toppings-by-spiciness", (req, res) => {
   var dataToSend;
   const python = spawn("python3", [
