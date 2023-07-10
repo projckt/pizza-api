@@ -14,8 +14,8 @@ query = """
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
     PREFIX owl: <http://www.w3.org/2002/07/owl#>
     
-    SELECT DISTINCT ?s WHERE {
-        ?s rdfs:subClassOf ?restriction .
+    SELECT DISTINCT ?toppings WHERE {
+        ?toppings rdfs:subClassOf ?restriction .
         ?restriction owl:onProperty pizza:hasSpiciness .
         ?restriction owl:someValuesFrom pizza:""" + sys.argv[1] + """ .
     }
@@ -24,6 +24,6 @@ query = """
 results = g.query(query) 
 
 for row in results:
-    uri=row["s"]
+    uri=row["toppings"]
     uri=uri.split("#")
     print(uri[1])
